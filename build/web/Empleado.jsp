@@ -33,7 +33,7 @@
                     <div class="form-group"><label for="">Usuario</label><input type="text" value="${empleado.getUser()}" name="txtUsuario" id="txtUsuario"
                             class="form-control"></div>
                     <input type="submit" name="accion" value="Agregar" class="btn btn-info" id="btnAgregar">
-                    <input type="submit" name="accion" value="Actualizar" class="btn btn-success" id="btnActualizar" style="display: block;">
+                    <input type="submit" name="accion" value="Actualizar" class="btn btn-success" id="btnActualizar">
                     <!-- <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger" id="btnCancelarActualizacion" style="text-align: right; display: none;"> -->
                 </form>
             </div>
