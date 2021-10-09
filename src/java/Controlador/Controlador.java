@@ -207,19 +207,19 @@ public class Controlador extends HttpServlet {
                 case "BuscarCliente":
                     String dni = request.getParameter("codigoCliente");
                     cli.setDni(dni);
-                    Cliente cl = cdao.buscar(dni);
-                    request.setAttribute("c", cl);
+                    cli = cdao.buscar(dni);
+                    request.setAttribute("c", cli);
                     break;
                 case "BuscarProducto":
                     int id = Integer.parseInt(request.getParameter("codigoProducto"));
                     pr = pdao.listarId(id);
-                    request.setAttribute("c", cl);
+                    request.setAttribute("c", cli);
                     request.setAttribute("producto", pr);
                     request.setAttribute("lista", lista);
                     request.setAttribute("totalPagar", totalPagar);
                     break;
                 case "Agregar":
-                    request.setAttribute("c", cl);
+                    request.setAttribute("c", cli);
                     totalPagar = 0.0;
                     item = item + 1;
                     cod = pr.getId();
@@ -229,7 +229,7 @@ public class Controlador extends HttpServlet {
                     subtotal = precio * cantidad;
                     v = new Venta();
                     v.setItem(item);
-                    v.setId(cod);
+                    v.setIdproducto(cod);
                     v.setDescripcionP(descripcion);
                     v.setPrecio(precio);
                     v.setCantidad(cantidad);
@@ -241,7 +241,29 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("totalPagar", totalPagar);
                     request.setAttribute("lista", lista);
                     break;
+                case "GenerarVenta":
+                    v.setIdcliente(cli.getId());
+                    v.setIdemplado(1);
+                    v.setNumserie(numeroserie);
+                    v.setFecha("2021-10-09");
+                    v.setMonto(totalPagar);
+                    v.setEstado("1");
+                    vdao.guardarVenta(v);
+                    int idv = Integer.parseInt(vdao.idVentas());
+                    for (int i = 0; i < lista.size(); i++) {
+                        v = new Venta();
+                        v.setId(idv);
+                        v.setIdproducto(lista.get(i).getIdproducto());
+                        v.setCantidad(lista.get(i).getCantidad());
+                        v.setPrecio(lista.get(i).getPrecio());
+                        vdao.guardarDetalleventas(v);
+                    }
+                    break;
                 default:
+                    v = new Venta();
+                    lista = new ArrayList<>();
+                    item = 0;
+                    totalPagar = 0.0;
                     numeroserie = vdao.GenerarSerie();
                     if (numeroserie == null) {
                         numeroserie = "000000001";
@@ -252,7 +274,7 @@ public class Controlador extends HttpServlet {
                         numeroserie = gs.NumeroSerie(incrementar);
                         request.setAttribute("nserie", numeroserie);
                     }
-                    request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
+                    //request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
                     break;
             }
             request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);

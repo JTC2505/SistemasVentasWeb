@@ -92,4 +92,39 @@ public class ProductoDAO {
             //TODO: handle exception
         }
     }
+
+    public Producto buscar(int id){
+        Producto pro= new Producto();
+        String sql="select * from producto where IdProducto="+id;
+
+        try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                pro.setId(rs.getInt(1));
+                pro.setNomb(rs.getString(2));
+                pro.setPrecio(rs.getInt(3));
+                pro.setStock(rs.getInt(4));
+                pro.setEstado(rs.getString(5));
+            }
+        }catch(Exception e){
+
+        }
+        return pro;
+    }
+
+    public int actualizarStock(int id, int stock){
+        String sql="update producto set Stock=? where IdProducto=?";
+        try{
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, stock);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        }catch(Exception e){
+
+        }
+        return r;
+    }
 }
