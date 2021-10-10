@@ -13,11 +13,18 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Registrar Venta</title>
+    <style>
+        @media print{
+            .parte01, .btn, .accion{
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="d-flex">
-        <div class="col-sm-4">
+        <div class="col-sm-4 parte01">
             <div class="card">
                 <form action="Controlador?menu=NuevaVenta" method="POST">
                     <div class="card-body">
@@ -83,7 +90,7 @@
                                 <th>Precio</th>
                                 <th>Cantidad</th>
                                 <th>SubTotal</th>
-                                <th>Acciones</th>
+                                <th class="accion">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,7 +113,7 @@
                 </div>
                 <div class="card-footer d-flex">
                     <div class="col-sm-6">
-                        <a href="Controlador?menu=NuevaVenta&accion=GenerarVenta" class="btn btn-success">Generar Venta</a>
+                        <a href="Controlador?menu=NuevaVenta&accion=GenerarVenta" class="btn btn-success" onclick="print()">Generar Venta</a>
                         <input type="submit" name="accion" value="Cancelar" class="btn btn-danger">
                     </div>
                     <div class="col-sm-4 ml-auto">

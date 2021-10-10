@@ -257,6 +257,14 @@ public class Controlador extends HttpServlet {
                         v.setCantidad(lista.get(i).getCantidad());
                         v.setPrecio(lista.get(i).getPrecio());
                         vdao.guardarDetalleventas(v);
+
+                        Producto pr = new Producto();
+                        int cantidad = lista.get(i).getCantidad();;
+                        int IdProducto = lista.get(i).getIdproducto();
+                        ProductoDAO aO = new ProductoDAO();
+                        pr = aO.buscar(IdProducto);
+                        int sac = pr.getStock() - cantidad;
+                        aO.actualizarStock(IdProducto, sac);
                     }
                     break;
                 default:

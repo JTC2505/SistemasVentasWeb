@@ -94,24 +94,24 @@ public class ProductoDAO {
     }
 
     public Producto buscar(int id){
-        Producto pro= new Producto();
-        String sql="select * from producto where IdProducto="+id;
+        String sql ="select * from producto where IdProducto=" + id;
+        Producto p = new Producto();
 
         try{
-            con=cn.Conexion();
-            ps=con.prepareStatement(sql);
-            rs=ps.executeQuery();
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
             while(rs.next()){
-                pro.setId(rs.getInt(1));
-                pro.setNomb(rs.getString(2));
-                pro.setPrecio(rs.getInt(3));
-                pro.setStock(rs.getInt(4));
-                pro.setEstado(rs.getString(5));
+                p.setId(rs.getInt(1));
+                p.setNomb(rs.getString(2));
+                p.setPrecio(rs.getInt(3));
+                p.setStock(rs.getInt(4));
+                p.setEstado(rs.getString(5));
             }
         }catch(Exception e){
 
         }
-        return pro;
+        return p;
     }
 
     public int actualizarStock(int id, int stock){
